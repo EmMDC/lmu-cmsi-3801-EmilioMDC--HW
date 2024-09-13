@@ -121,8 +121,9 @@ export class Quaternion {
     }
 
     let ans = stringRep.join("+")
-    ans = ans.replace("+-", "-")
-    ans = ans.replace("+-", "-")
+    for (let i = 0; i < 3; i++) {
+      ans = ans.replace("+-", "-")
+    }
     return ans
   }
 

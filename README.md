@@ -1,39 +1,155 @@
-# Homework Template for CMSI 3801
-
-Welcome!
-
-## Instructions
-
-Fork this repo for your homework submissions. Make sure your fork has a nice, descriptive name. Leaving the name as “lmu-cmsi-3801-template” is misleading, and keeping it indicates you are not taking sufficient pride in your work. After forking, **please replace the contents of this readme** file with information about your submissions, including the name(s) of the students, and a description of each assignment (as they are turned in).
-
-Don’t bother with notes to the graders. Such notes go into your BrightSpace submissions, not your GitHub repository.
-
-Your homework submissions will consist of programs in the following languages. To keep things simple, there is a separate folder for each language.
-
 - **Homework 1 (Scripting)**: Lua, Python, JavaScript
 - **Homework 2 (Enterprise)**: Java, Kotlin, Swift
 - **Homework 3 (Theory)**: TypeScript, OCaml, Haskell
 - **Homework 4 (Systems)**: C, C++, Rust
 - **Homework 5 (Concurrency)**: Go
 
-At each homework deadline, the graders will clone your repo and run the tests. I will be inspecting the source code, grading your work on style, clarity, and appropriate use of language idioms. Do not throw away points in these areas: **use code formatters and linters**. Please consider it a moral obligation to use these tools. Not doing so is a violation of professional ethics. _You must respect the naming, capitalization, formatting, spacing, and indentation conventions of each language_.
-
-## The Test Suites
-
-The test files are included in the repo already. They are available for YOU! They will help you not only learn the languages and concepts covered in this course, but to help you with professional practice. You should get accustomed to writing code to make tests pass. As you grow in your profession, you will get used to writing your tests early.
-
-The test suites are run like so (assuming you have a Unix-like shell, modify as necessary if you have Windows):
-
 ### Lua
 
 ```
-lua exercises_test.lua
+This module contains utility functions and a class in Lua:
+
+Functions
+change(amount)
+Purpose: Calculates the number of coins needed for a given amount using denominations of 25, 10, 5, and 1 cents.
+
+Parameters:
+amount (integer): The amount of money to be converted into coins.
+
+Returns:
+A table with the count of each denomination.
+
+Errors:
+Throws an error if amount is not an integer or is negative.
+
+first_then_lower_case(list, predicate)
+Purpose: Finds the first element in a list that satisfies a given predicate and returns it in lowercase.
+
+Parameters:
+list (table): A list of strings.
+predicate (function): A function that takes a string and returns a boolean.
+
+Returns:
+The first element that satisfies the predicate, converted to lowercase, or nil if no such element is found.
+
+powers_generator(base, limit)
+Purpose: Generates powers of a given base up to a specified limit using coroutines.
+
+Parameters:
+base (number): The base for the powers.
+limit (number): The upper limit for the generated powers.
+
+Returns:
+A coroutine that yields powers of the base up to the limit.
+
+say(word)
+Purpose: Creates a function that concatenates words when called.
+
+Parameters:
+word (string): The initial word to start with.
+
+Returns:
+A function that, when called with a new word, concatenates it with the previous word.
+
+meaningful_line_count(filename)
+Purpose: Counts the number of lines in a file that are not empty, not only whitespace, and do not start with a #.
+
+Parameters:
+filename (string): The path to the file to be processed.
+
+Returns:
+The count of meaningful lines in the file.
+
+Errors:
+Throws an error if the file cannot be opened.
+
+Quaternion Class
+The Quaternion class represents a quaternion with four components: a, b, c, and d. It provides various operations on quaternions. This language is able to perform the equivalent of the class through a table.
+
+Methods
+coefficients(): Returns the coefficients of the quaternion as a table {a, b, c, d}.
+conjugate(): Returns the conjugate of the quaternion.
+__add(other): Adds two quaternions.
+__mul(other): Multiplies two quaternions.
+__eq(other): Checks equality between two quaternions.
+__tostring(): Returns a string representation of the quaternion.
+
+Parameters:
+a, b, c, d (number): The components of the quaternion.
 ```
 
 ### Python
 
 ```
-python3 exercises_test.py
+This module contains utility functions and a data class for various operations:
+
+Functions:
+
+
+change(amount: int) -> dict[int, int]
+Returns a dictionary representing the number of coins of each denomination needed to make up the given amount. Supported denominations are 25, 10, 5, and 1 cents.
+
+Parameters:
+amount: The total amount of money in cents.
+
+Raises:
+TypeError: If amount is not an integer.
+ValueError: If amount is negative.
+
+
+first_then_lower_case(list, predicate)
+Returns the first element in the list that satisfies the predicate, converted to lowercase. If no element satisfies the predicate, returns None.
+
+Parameters:
+list: The list of elements to search through.
+predicate: A function to test each element.
+
+
+powers_generator(*, base, limit)
+Generates powers of the specified base up to the given limit.
+
+Parameters:
+base: The base of the power.
+limit: The upper limit for the powers.
+
+
+say(word=None)
+Creates a function that appends words to word when called. If word is not provided, returns an empty string.
+
+Parameters:
+word: The initial word or phrase.
+
+Returns:
+A function to concatenate words to word.
+
+
+meaningful_line_count(filename)
+Counts the number of lines in a file that are neither empty, made up of whitespace, nor start with a #.
+
+Parameters:
+filename: The name of the file to read.
+
+Raises:
+FileNotFoundError: If the file does not exist.
+
+Data Class
+
+
+Quaternion
+Represents a quaternion with components a, b, c, and d.
+
+Attributes:
+a, b, c, d: The components of the quaternion.
+
+Methods:
+__str__(): Returns a string representation of the quaternion.
+__eq__(other): Checks equality with another quaternion.
+__mul__(other): Multiplies this quaternion with another quaternion.
+__add__(other): Adds another quaternion to this one.
+
+Properties:
+coefficients: Returns the coefficients as a tuple (a, b, c, d).
+conjugate: Returns the conjugate of the quaternion.
 ```
 
 ### JavaScript
