@@ -25,6 +25,7 @@ end
 
 
 
+--Used Homework Helper 1 video as reference 
 function powers_generator(base, limit)
   return coroutine.create(function ()
     local exponent = 0
@@ -38,6 +39,7 @@ function powers_generator(base, limit)
 end
 
 
+--Used Homework Helper 1 video as reference 
 function say(word)
   if word == nil then
     return ""
@@ -71,7 +73,7 @@ function meaningful_line_count(filename)
     return valid_lines
 end
 
-
+--Used Slack BETTER VECTOR as reference
 Quaternion = {}
 
 quaternionmeta = {
