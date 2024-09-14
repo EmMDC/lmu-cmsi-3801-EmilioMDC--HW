@@ -16,6 +16,7 @@ export function change(amount) {
   return counts
 }
 
+//used helper video as reference
 export function firstThenLowerCase(strings, predicate) {
   const first = strings.find(predicate)
   return first?.toLowerCase()
@@ -47,31 +48,53 @@ export function say(word = null) {
 }
 
 export async function meaningfulLineCount(filename) {
-  let validLines = 0
-  let fileHandle
-
   try {
-    fileHandle = await open(filename, "r")
-    const rl = createInterface({
-      input: fileHandle.createReadStream(),
-      crlfDelay: Infinity,
-    })
+    let validLines = 0
+    const file = await open(filename, "r")
+    const fileStream = file.createReadStream()
 
-    for await (const line of rl) {
-      const strippedLine = line.trim()
-      if (strippedLine !== "" && strippedLine.charAt(0) !== "#") {
-        validLines++
+    for await (const chunk of fileStream) {
+      const lines = chunk.toString("utf-8").split("\n")
+      for (let line of lines) {
+        const strippedLine = line.trim()
+        if (strippedLine && !strippedLine.startsWith("#")) {
+          validLines++
+        }
       }
     }
+
+    await file.close()
+    return validLines
   } catch (err) {
     throw new Error(`No such file: ${filename}`)
-  } finally {
-    if (fileHandle) {
-      await fileHandle.close()
-    }
   }
-  return validLines
 }
+
+//   let validLines = 0
+//   let fileHandle
+
+//   try {
+//     fileHandle = await open(filename, "r")
+//     const rl = createInterface({
+//       input: fileHandle.createReadStream(),
+//       crlfDelay: Infinity,
+//     })
+
+//     for await (const line of rl) {
+//       const strippedLine = line.trim()
+//       if (strippedLine !== "" && strippedLine.charAt(0) !== "#") {
+//         validLines++
+//       }
+//     }
+//   } catch (err) {
+//     throw new Error(`No such file: ${filename}`)
+//   } finally {
+//     if (fileHandle) {
+//       await fileHandle.close()
+//     }
+//   }
+//   return validLines
+// }
 
 export class Quaternion {
   constructor(a, b, c, d) {
@@ -121,6 +144,9 @@ export class Quaternion {
     }
 
     let ans = stringRep.join("+")
+
+    //needs to occur multiple times other replace stopped at the first instance
+    //set to 3 as that is the max it will ever be with quaternion having 4 parameters
     for (let i = 0; i < 3; i++) {
       ans = ans.replace("+-", "-")
     }
