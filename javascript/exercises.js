@@ -1,5 +1,4 @@
 import { open } from "node:fs/promises"
-import { createInterface } from "node:readline"
 
 export function change(amount) {
   if (!Number.isInteger(amount)) {
@@ -53,8 +52,8 @@ export async function meaningfulLineCount(filename) {
     const file = await open(filename, "r")
     const fileStream = file.createReadStream()
 
-    for await (const chunk of fileStream) {
-      const lines = chunk.toString("utf-8").split("\n")
+    for await (const portion of fileStream) {
+      const lines = portion.toString("utf-8").split("\n")
       for (let line of lines) {
         const strippedLine = line.trim()
         if (strippedLine && !strippedLine.startsWith("#")) {
@@ -69,32 +68,6 @@ export async function meaningfulLineCount(filename) {
     throw new Error(`No such file: ${filename}`)
   }
 }
-
-//   let validLines = 0
-//   let fileHandle
-
-//   try {
-//     fileHandle = await open(filename, "r")
-//     const rl = createInterface({
-//       input: fileHandle.createReadStream(),
-//       crlfDelay: Infinity,
-//     })
-
-//     for await (const line of rl) {
-//       const strippedLine = line.trim()
-//       if (strippedLine !== "" && strippedLine.charAt(0) !== "#") {
-//         validLines++
-//       }
-//     }
-//   } catch (err) {
-//     throw new Error(`No such file: ${filename}`)
-//   } finally {
-//     if (fileHandle) {
-//       await fileHandle.close()
-//     }
-//   }
-//   return validLines
-// }
 
 export class Quaternion {
   constructor(a, b, c, d) {
