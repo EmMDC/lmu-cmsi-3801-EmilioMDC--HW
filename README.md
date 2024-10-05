@@ -98,7 +98,7 @@ ValueError: If amount is negative.
 
 
 first_then_lower_case(list, predicate)
-Returns the first element in the list that satisfies the predicate, converted to lowercase. If no element satisfies the predicate, returns None.
+Returns the first element in the list that satisfies the predicate, converted to lowercase. If no element satisfies the predicate, returns None. Makes sure to only accept positional arguuments.
 
 Parameters:
 list: The list of elements to search through.
@@ -106,7 +106,7 @@ predicate: A function to test each element.
 
 
 powers_generator(*, base, limit)
-Generates powers of the specified base up to the given limit.
+Generates powers of the specified base up to the given limit. Makes sure to only accept keyword arguments.
 
 Parameters:
 base: The base of the power.
@@ -114,7 +114,7 @@ limit: The upper limit for the powers.
 
 
 say(word=None)
-Creates a function that appends words to word when called. If word is not provided, returns an empty string.
+Creates a function that appends words to word when called. If word is not provided, returns an empty string. Uses only a single defulat positoinal argument(word=None)
 
 Parameters:
 word: The initial word or phrase.
@@ -124,7 +124,7 @@ A function to concatenate words to word.
 
 
 meaningful_line_count(filename)
-Counts the number of lines in a file that are neither empty, made up of whitespace, nor start with a #.
+Counts the number of lines in a file that are neither empty, made up of whitespace, nor start with a #. Makes sure that the argument is positional only.
 
 Parameters:
 filename: The name of the file to read.
@@ -136,7 +136,7 @@ Data Class
 
 
 Quaternion
-Represents a quaternion with components a, b, c, and d.
+Represents a quaternion with components a, b, c, and d. Makes sure to make the class frozen to make it immutable.
 
 Attributes:
 a, b, c, d: The components of the quaternion.
@@ -155,25 +155,378 @@ conjugate: Returns the conjugate of the quaternion.
 ### JavaScript
 
 ```
-npm test
+This module provides several utility functions and a class for handling quaternions. The functionalities include:
+
+Functions:
+
+
+change(amount)
+Calculates the number of coins required to make up a given amount.
+
+Parameters:
+amount (number): The amount of money.
+
+Returns:
+An object with counts of coins in denominations of 25, 10, 5, and 1.
+
+Throws:
+TypeError if the amount is not an integer.
+RangeError if the amount is negative.
+
+firstThenLowerCase(strings, predicate)
+Finds the first string in an array that satisfies a predicate and converts it to lowercase. Uses the optional chaining operator provided by javascript.
+
+Parameters:
+strings (Array<string>): An array of strings.
+predicate (function): A function to test each string.
+
+Returns:
+The first string that meets the predicate, converted to lowercase, or undefined if no string meets the predicate.
+
+powersGenerator({ ofBase, upTo })
+Generates powers of a base number up to a specified value. Uses destructuring of the object argument
+
+Parameters:
+ofBase (number): The base number.
+upTo (number): The maximum value of the power.
+
+Returns:
+A generator that yields powers of the base number.
+
+say(word = null)
+Builds a phrase starting with the given word and appends additional words.
+
+Parameters:
+word (string|null): The starting word of the phrase.
+
+Returns:
+A function that appends words to the phrase.
+
+meaningfulLineCount(filename)
+Counts the number of meaningful lines in a file. Makes sure to complete this process through async functionality.
+
+Parameters:
+filename (string): The path to the file.
+
+Returns:
+The number of lines that are not empty, not made up of whitespace, and do not start with #.
+
+Throws:
+Error if the file does not exist.
+
+Class
+Quaternion
+Represents a quaternion with four components: a, b, c, and d. Makes sure to use getters and make the objects frozen upon construction to make it immutable.
+
+Constructor:
+Quaternion(a, b, c, d): Initializes a quaternion with given components.
+
+Methods:
+toString(): Returns a string representation of the quaternion.
+equals(other): Checks if this quaternion is equal to another quaternion.
+times(other): Multiplies this quaternion by another quaternion and returns the result.
+plus(other): Adds another quaternion to this quaternion and returns the result.
+
+Getters:
+coefficients: Returns an array of the quaternion's coefficients [a, b, c, d].
+conjugate: Returns the conjugate of the quaternion.
 ```
 
 ### Java
 
 ```
-javac *.java && java ExercisesTest
+This module provides utility functions and classes for handling various operations, including currency change calculation, joins arguments of succesive calls into strings, file accessing, quaternion class, and a binary search tree implementation.
+
+### `change(long amount)`
+
+Calculates the number of coins required to make up a given amount.
+
+**Parameters:**
+- `amount` (long): The amount of money.
+
+**Returns:**
+- A map with counts of coins in denominations of 25, 10, 5, and 1.
+
+**Throws:**
+- `IllegalArgumentException` if the amount is negative.
+
+---
+
+### `firstThenLowerCase(List<String> strings, Predicate<String> predicate)`
+
+Finds the first string in a list that satisfies a given predicate and converts it to lowercase.
+
+**Parameters:**
+- `strings` (List<String>): A list of strings.
+- `predicate` (Predicate<String>): A function to test each string.
+
+**Returns:**
+- An `Optional<String>` containing the first string that meets the predicate, converted to lowercase, or `Optional.empty()` if no string meets the predicate.
+
+---
+
+### `ChainablePhrase`
+
+A class that allows for the creation of chainable phrases.
+
+**Constructor:**
+- `ChainablePhrase(String initialWord)`: Initializes a chainable phrase with the provided initial word.
+
+### Methods
+
+- `ChainablePhrase and(String word)`: Adds a word to the chain and returns a new instance to prevent shared state.
+- `String phrase()`: Returns the accumulated phrase as a string.
+
+### Static Methods
+
+- `say()`: Initiates a chainable phrase with an empty string.
+- `say(String word)`: Initiates a chainable phrase starting with the given word.
+
+---
+
+### `meaningfulLineCount(String filename)`
+
+Counts the number of meaningful lines in a file.
+
+**Parameters:**
+- `filename` (String): The path to the file.
+
+**Returns:**
+- The number of lines that are not empty, not made up of whitespace, and do not start with `#`.
+
+**Throws:**
+- `IOException` if the file does not exist.
+
+---
+
+### `Quaternion`
+
+Represents a quaternion with four components(vectors): `a`, `b`, `c`, and `d`. This class ensures the coefficients are valid and provides various mathematical operations as well as formats the string representation of a quaternion.
+
+**Constructor:**
+- `Quaternion(double a, double b, double c, double d)`: Initializes a quaternion with given components.
+
+**Methods:**
+- `Quaternion plus(Quaternion other)`: Adds another quaternion and returns the result.
+- `Quaternion times(Quaternion other)`: Multiplies this quaternion by another and returns the result.
+- `Quaternion conjugate()`: Returns the conjugate of the quaternion.
+- `List<Double> coefficients()`: Returns a list of the quaternion's coefficients `[a, b, c, d]`.
+
+**Constants:**
+- `ZERO`, `I`, `J`, `K`: constants required for the tests.
+
+---
+
+### `BinarySearchTree`
+
+A sealed interface representing a binary search tree.
+
+**Methods:**
+- `int size()`: Returns the number of nodes in the tree.
+- `boolean contains(String value)`: Checks if the tree contains a specific value.
+- `BinarySearchTree insert(String value)`: Inserts a value into the tree.
+
+**Implementations:**
+- `Empty`: Represents an empty tree.
+- `Node`: Represents a node in the tree with a value
+
 ```
 
 ### Kotlin
 
 ```
-kotlinc *.kt -include-runtime -d test.jar && java -jar test.jar
+This module provides utility functions and classes for handling various operations, including currency change calculation,  joins arguments of succesive calls into strings, file accessing, quaternion class, and a binary search tree implementation.
+
+### `change(amount: Long): Map<Int, Long>`
+
+Calculates the number of coins required to make up a given amount.
+
+**Parameters:**
+- `amount` (Long): The amount of money.
+
+**Returns:**
+- A map with counts of coins in denominations of 25, 10, 5, and 1.
+
+**Throws:**
+- `IllegalArgumentException` if the amount is negative.
+
+---
+
+### `firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): String?`
+
+Finds the first string in a list that satisfies a given predicate and converts it to lowercase.
+
+**Parameters:**
+- `strings` (List<String>): A list of strings.
+- `predicate` ((String) -> Boolean): A function to test each string.
+
+**Returns:**
+- A nullable `String` containing the first string that meets the predicate, converted to lowercase, or `null` if no string meets the predicate.
+
+---
+
+### `meaningfulLineCount(filename: String): Long`
+
+Counts the number of meaningful lines in a file.
+
+**Parameters:**
+- `filename` (String): The path to the file.
+
+**Returns:**
+- The number of lines that are not empty, not made up of whitespace, and do not start with `#`.
+
+**Throws:**
+- `IOException` if the file does not exist.
+
+---
+
+### `PhraseBuilder`
+
+A class that allows for the creation of chainable phrases.
+
+**Constructor:**
+- `PhraseBuilder(wordList: List<String> = emptyList())`: Initializes a PhraseBuilder with the provided list of words or an empty list.
+
+### Methods
+
+- `fun and(newWord: String): PhraseBuilder`: Adds a word to the chain and returns a new `PhraseBuilder`.
+- `val phrase: String`: A read-only property that gets the accumulated phrase as a string.
+- `fun copy(): PhraseBuilder`: Creates a copy of the current `PhraseBuilder`.
+
+### Top-Level Function
+
+- `say(vararg initialWords: String): PhraseBuilder`: Initiates a new `PhraseBuilder` with the provided initial words.
+
+---
+
+### `Quaternion`
+
+Represents a quaternion with four components: `a`, `b`, `c`, and `d`. This class ensures the coefficients are valid and provides various mathematical operations.
+
+**Constructor:**
+- `Quaternion(a: Double, b: Double, c: Double, d: Double)`: Initializes a quaternion with given components.
+
+**Methods:**
+- `operator fun plus(other: Quaternion): Quaternion`: Adds another quaternion and returns the result.
+- `operator fun times(other: Quaternion): Quaternion`: Multiplies this quaternion by another and returns the result.
+- `fun coefficients(): List<Double>`: Returns a list of the quaternion's coefficients `[a, b, c, d]`.
+- `fun conjugate(): Quaternion`: Returns the conjugate of the quaternion.
+- `override fun toString(): String`: Returns a string representation of the quaternion.
+
+**Companion Object Constants:**
+- `ZERO`, `I`, `J`, `K`: constants needed for test.
+
+---
+
+### Binary Search Tree
+
+A sealed interface representing a binary search tree.
+
+### Methods
+
+- `fun size(): Int`: Returns the number of nodes in the tree.
+- `fun contains(value: String): Boolean`: Checks if the tree contains a specific value.
+- `fun insert(value: String): BinarySearchTree`: Inserts a value into the tree.
+
+### Implementations
+
+- `object Empty`: Represents an empty tree.
+- `data class Node`: Represents a node in the tree with a value, left, and right children.
+
 ```
 
 ### Swift
 
 ```
-swiftc -o main exercises.swift main.swift && ./main
+
+This module provides utility functions and classes for handling various operations, including currency change calculation,  joins arguments of succesive calls into strings, file accessing, quaternion class, and a binary search tree implementation.
+
+## Functions
+
+### `change(_ amount: Int) -> Result<[Int: Int], NegativeAmountError>`
+
+Calculates the number of coins required to make up a given amount.
+
+**Parameters:**
+- `amount` (Int): The amount of money.
+
+**Returns:**
+- A `Result` containing a dictionary with counts of coins in denominations of 25, 10, 5, and 1, or a failure with `NegativeAmountError` if the amount is negative.
+
+---
+
+### `firstThenLowerCase(of strings: [String], satisfying predicate: (String) -> Bool) -> String?`
+
+Finds the first string in an array that satisfies a given predicate and converts it to lowercase.
+
+**Parameters:**
+- `strings` ([String]): An array of strings.
+- `predicate` ((String) -> Bool): A closure that tests each string.
+
+**Returns:**
+- An optional `String` containing the first string that meets the predicate, converted to lowercase, or `nil` if no string meets the predicate.
+
+---
+
+### `struct sayer`
+
+A structure that allows the creation of chainable phrases.
+
+**Properties:**
+- `wordsList` ([String]): The list of words that make up the phrase.
+
+**Initializer:**
+- `init(_ word: String = "")`: Initializes a `sayer` with the provided word.
+
+### Methods
+
+- `func and(_ word: String) -> sayer`: Adds a word to the phrase and returns a new instance.
+- `var phrase: String`: Returns the accumulated phrase as a string.
+
+### Static Methods
+
+- `func say(_ word: String = "") -> sayer`: Initiates a `sayer` with an optional initial word.
+
+---
+
+### `Quaternion`
+
+Represents a quaternion with four components (a, b, c, and d) and provides various mathematical operations as well as a string representation.
+
+**Properties:**
+- `a`, `b`, `c`, `d` (Double): The components of the quaternion.
+
+**Constants:**
+- `static let ZERO`, `static let I`, `static let J`, `static let K`: Constants representing specific quaternions.
+
+**Initializer:**
+- `init(a: Double = 0, b: Double = 0, c: Double = 0, d: Double = 0)`: Initializes a quaternion with the specified components.
+
+### Methods
+
+- `var coefficients: [Double]`: Returns the quaternion's coefficients as an array.
+- `var conjugate: Quaternion`: Returns the conjugate of the quaternion.
+- `static func + (lhs: Quaternion, rhs: Quaternion) -> Quaternion`: Adds two quaternions.
+- `static func * (lhs: Quaternion, rhs: Quaternion) -> Quaternion`: Multiplies two quaternions.
+- `var description: String`: Provides a string representation of the quaternion.
+
+---
+
+### BinarySearchTree
+
+An enumeration representing a binary search tree.
+
+**Cases:**
+- `case empty`: Represents an empty tree.
+- `indirect case node(BinarySearchTree, String, BinarySearchTree)`: Represents a node in the tree with a value and left/right subtrees.
+
+### Methods
+
+- `var size: Int`: Returns the number of nodes in the tree.
+- `func contains(_ value: String) -> Bool`: Checks if the tree contains a specific value.
+- `func insert(_ value: String) -> BinarySearchTree`: Inserts a value into the tree.
+- `var description: String`: Provides a string representation of the tree structure.
+
 ```
 
 ### TypeScript
