@@ -532,18 +532,447 @@ An enumeration representing a binary search tree.
 ### TypeScript
 
 ```
+This module provides utility functions and classes for handling various operations, including finding elements in arrays, generating powers of numbers, counting lines in files, calculating geometric properties, and implementing a binary search tree.
+
+## Functions
+
+### `firstThenApply<T, U>(items: T[], predicate: (item: T) => boolean, transform: (item: T) => U): U | undefined`
+
+Finds the first item in an array that satisfies a given predicate and applies a transformation function to it.
+
+**Parameters:**
+- `items` (T[]): An array of items.
+- `predicate` ((item: T) => boolean): A function that tests each item in the array.
+- `transform` ((item: T) => U): A function that transforms the first matching item.
+
+**Returns:**
+- An optional transformed item of type `U`, or `undefined` if no match is found.
+
+---
+
+### `powersGenerator(base: bigint): Generator<bigint>`
+
+Generates successive powers of a given base.
+
+**Parameters:**
+- `base` (bigint): The base number.
+
+**Yields:**
+- A sequence of `bigint` values, each representing the next power of the base, starting from 1.
+
+---
+
+### `meaningfulLineCount(filename: string): Promise<number>`
+
+Counts the number of non-empty, non-comment lines in a file.
+
+**Parameters:**
+- `filename` (string): The name of the file to read.
+
+**Returns:**
+- A `Promise` resolving to the number of meaningful lines.
+
+**Throws:**
+- An error if the file cannot be opened or found.
+
+---
+
+## Types and Interfaces
+
+### `interface Sphere`
+
+Represents a sphere with a specific radius.
+
+**Properties:**
+- `kind` ("Sphere"): Identifies the shape as a sphere.
+- `radius` (number): The radius of the sphere.
+
+---
+
+### `interface Box`
+
+Represents a box with specified dimensions.
+
+**Properties:**
+- `kind` ("Box"): Identifies the shape as a box.
+- `width` (number): The width of the box.
+- `length` (number): The length of the box.
+- `depth` (number): The depth of the box.
+
+---
+
+## Geometry Functions
+
+### `surfaceArea(shape: Shape): number`
+
+Calculates the surface area of a given shape.
+
+**Parameters:**
+- `shape` (Shape): A `Sphere` or `Box` object.
+
+**Returns:**
+- The surface area of the shape.
+
+---
+
+### `volume(shape: Shape): number`
+
+Calculates the volume of a given shape.
+
+**Parameters:**
+- `shape` (Shape): A `Sphere` or `Box` object.
+
+**Returns:**
+- The volume of the shape.
+
+---
+
+## Binary Search Tree
+
+### `interface BinarySearchTree<T>`
+
+An interface defining the structure of a binary search tree.
+
+**Methods:**
+- `size(): number`: Returns the number of nodes in the tree.
+- `contains(value: T): boolean`: Checks if the tree contains a specific value.
+- `insert(value: T): BinarySearchTree<T>`: Inserts a value into the tree.
+- `inorder(): Iterable<T>`: Provides an in-order traversal of the tree.
+
+### `class Empty<T>`
+
+Represents an empty node in a binary search tree.
+
+**Methods:**
+- `size()`: Returns `0`.
+- `contains(value: T)`: Returns `false`.
+- `insert(value: T)`: Inserts a new node.
+- `inorder()`: Returns an empty iterator.
+
+### `class Node<T>`
+
+Represents a non-empty node in a binary search tree, with left and right children.
+
+**Properties:**
+- `nodeValue` (T): The value of the node.
+- `leftChild` (BinarySearchTree<T>): The left subtree.
+- `rightChild` (BinarySearchTree<T>): The right subtree.
+
+**Methods:**
+- `size()`: Returns the size of the tree.
+- `contains(value: T)`: Checks if the tree contains a specific value.
+- `insert(value: T)`: Inserts a value into the tree.
+- `inorder()`: Provides an in-order traversal of the tree.
 npm test
+
 ```
 
 ### OCaml
 
 ```
+
+This module provides utility functions and types for operations like calculating currency denominations, finding elements in arrays, generating powers, counting lines in files, computing geometric properties, and implementing a binary search tree.
+
+## Functions
+
+### `first_then_apply : 'a list -> ('a -> bool) -> ('a -> 'b) -> 'b option`
+
+Finds the first element in a list that satisfies a given predicate and applies a consumer function to it.
+
+**Parameters:**
+- `array` ('a list): A list of elements.
+- `predicate` ('a -> bool): A function to test each element.
+- `consumer` ('a -> 'b): A function applied to the first matching element.
+
+**Returns:**
+- An optional value of type `'b` after applying `consumer`, or `None` if no match is found.
+
+---
+
+### `powers_generator : int -> int Seq.t`
+
+Generates successive powers of a given base.
+
+**Parameters:**
+- `base` (int): The base number.
+
+**Returns:**
+- A sequence of integers representing powers of the base, starting from 1.
+
+---
+
+### `meaningful_line_count : string -> int`
+
+Counts the number of non-empty, non-comment lines in a file.
+
+**Parameters:**
+- `filename` (string): The name of the file to read.
+
+**Returns:**
+- An integer representing the count of meaningful lines.
+
+**Exceptions:**
+- Throws an error if the file cannot be opened.
+
+---
+
+## Types and Interfaces
+
+### `type shape`
+
+Defines different shapes for calculating volume and surface area.
+
+- `Sphere of float`: Represents a sphere with a specified radius.
+- `Box of float * float * float`: Represents a box with specified dimensions.
+
+---
+
+## Geometry Functions
+
+### `volume : shape -> float`
+
+Calculates the volume of a given shape.
+
+**Parameters:**
+- `shape_item` (shape): A `Sphere` or `Box`.
+
+**Returns:**
+- The volume of the shape as a float.
+
+---
+
+### `surface_area : shape -> float`
+
+Calculates the surface area of a given shape.
+
+**Parameters:**
+- `shape_item` (shape): A `Sphere` or `Box`.
+
+**Returns:**
+- The surface area of the shape as a float.
+
+---
+
+## Binary Search Tree
+
+### `type 'a binary_search_tree`
+
+A type representing a binary search tree structure.
+
+- `Empty`: Represents an empty tree.
+- `Node of 'a binary_search_tree * 'a * 'a binary_search_tree`: Represents a node with a value and left/right subtrees.
+
+---
+
+### Binary Search Tree Functions
+
+#### `size : 'a binary_search_tree -> int`
+
+Calculates the number of nodes in the tree.
+
+**Parameters:**
+- `tree` ('a binary_search_tree): The binary search tree.
+
+**Returns:**
+- An integer representing the number of nodes in the tree.
+
+---
+
+#### `insert : 'a -> 'a binary_search_tree -> 'a binary_search_tree`
+
+Inserts a value into the binary search tree.
+
+**Parameters:**
+- `value` ('a): The value to insert.
+- `tree` ('a binary_search_tree): The tree to insert the value into.
+
+**Returns:**
+- A new binary search tree with the value inserted.
+
+---
+
+#### `contains : 'a -> 'a binary_search_tree -> bool`
+
+Checks if the tree contains a specific value.
+
+**Parameters:**
+- `value` ('a): The value to search for.
+- `tree` ('a binary_search_tree): The tree to search in.
+
+**Returns:**
+- `true` if the value is in the tree, `false` otherwise.
+
+---
+
+#### `inorder : 'a binary_search_tree -> 'a list`
+
+Performs an in-order traversal of the tree.
+
+**Parameters:**
+- `tree` ('a binary_search_tree): The tree to traverse.
+
+**Returns:**
+- A list of elements in in-order sequence.
+
 ocamlc exercises.ml exercises_test.ml && ./a.out
 ```
 
 ### Haskell
 
 ```
+
+This module provides a set of utility functions and data types for handling currency change, processing lists, generating powers, counting lines in files, calculating geometric properties, and implementing a binary search tree.
+
+## Functions
+
+### `firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b`
+
+Finds the first element in a list that satisfies a given predicate and applies a function to it.
+
+**Parameters:**
+- `elements` ([a]): A list of elements.
+- `predicate` (a -> Bool): A function to test each element.
+- `function` (a -> b): A function applied to the first matching element.
+
+**Returns:**
+- A `Maybe b` value, which is `Just (function matchedElement)` or `Nothing` if no match is found.
+
+---
+
+### `powers :: (Integral a) => a -> [a]`
+
+Generates a list of powers of a given base.
+
+**Parameters:**
+- `base` (a): The base number.
+
+**Returns:**
+- A list of integers representing the powers of the base, starting from \( base^0 \).
+
+---
+
+### `meaningfulLineCount :: FilePath -> IO Int`
+
+Counts the number of non-empty, non-comment lines in a specified file.
+
+**Parameters:**
+- `filePath` (FilePath): The path of the file to read.
+
+**Returns:**
+- An `IO Int` representing the count of meaningful lines.
+
+---
+
+## Data Types
+
+### `data Shape`
+
+Defines different shapes for calculating volume and surface area.
+
+- `Sphere Double`: Represents a sphere with a specified radius.
+- `Box Double Double Double`: Represents a box with specified length, width, and height.
+
+---
+
+## Geometry Functions
+
+### `volume :: Shape -> Double`
+
+Calculates the volume of a given shape.
+
+**Parameters:**
+- `shape` (Shape): A `Sphere` or `Box`.
+
+**Returns:**
+- The volume of the shape as a `Double`.
+
+---
+
+### `surfaceArea :: Shape -> Double`
+
+Calculates the surface area of a given shape.
+
+**Parameters:**
+- `shape` (Shape): A `Sphere` or `Box`.
+
+**Returns:**
+- The surface area of the shape as a `Double`.
+
+---
+
+## Binary Search Tree
+
+### `data BST value`
+
+A type representing a binary search tree structure.
+
+- `Empty`: Represents an empty tree.
+- `Node value (BST value) (BST value)`: Represents a node containing a value and its left and right subtrees.
+
+---
+
+### Binary Search Tree Functions
+
+#### `size :: BST value -> Int`
+
+Calculates the number of nodes in the tree.
+
+**Parameters:**
+- `tree` (BST value): The binary search tree.
+
+**Returns:**
+- An integer representing the number of nodes in the tree.
+
+---
+
+#### `insert :: Ord value => value -> BST value -> BST value`
+
+Inserts a value into the binary search tree.
+
+**Parameters:**
+- `newValue` (Ord value): The value to insert.
+- `tree` (BST value): The tree to insert the value into.
+
+**Returns:**
+- A new binary search tree with the value inserted.
+
+---
+
+#### `contains :: Ord value => value -> BST value -> Bool`
+
+Checks if the tree contains a specific value.
+
+**Parameters:**
+- `searchValue` (Ord value): The value to search for.
+- `tree` (BST value): The tree to search in.
+
+**Returns:**
+- `True` if the value is in the tree, `False` otherwise.
+
+---
+
+#### `inorder :: BST value -> [value]`
+
+Performs an in-order traversal of the tree.
+
+**Parameters:**
+- `tree` (BST value): The tree to traverse.
+
+**Returns:**
+- A list of elements in in-order sequence.
+
+---
+
+## Show Instance for BST
+
+### `instance Show value => Show (BST value)`
+
+Defines how to display a binary search tree as a string.
+
+**Returns:**
+- An empty string for `Empty`.
+- A string representation of the tree structure for `Node`.
+
 ghc ExercisesTest.hs && ./ExercisesTest
 ```
 
