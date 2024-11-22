@@ -979,18 +979,189 @@ ghc ExercisesTest.hs && ./ExercisesTest
 ### C
 
 ```
+
+This module provides a dynamic stack implementation for managing strings. The stack grows and shrinks automatically as elements are pushed and popped. It includes basic stack operations like push, pop, and checking if the stack is empty or full.
+
+## Functions
+
+### `create :: IO (stack_response)`
+
+Creates a new stack with an initial capacity of 16.
+
+**Returns:**
+- `out_of_memory` if memory allocation fails.
+- `success` with the created stack if successful.
+
+---
+
+### `size :: stack -> Int`
+
+Returns the number of elements in the stack.
+
+---
+
+### `is_empty :: stack -> Bool`
+
+Checks if the stack is empty.
+
+---
+
+### `is_full :: stack -> Bool`
+
+Checks if the stack is full.
+
+---
+
+### `push :: stack -> String -> response_code`
+
+Pushes a string onto the stack.
+
+**Returns:**
+- `stack_full` if the stack is full.
+- `stack_element_too_large` if the string exceeds the maximum size.
+- `out_of_memory` if memory allocation fails.
+- `success` if successful.
+
+---
+
+### `pop :: stack -> string_response`
+
+Pops the top element from the stack and returns it.
+
+**Returns:**
+- `stack_empty` if the stack is empty.
+- `out_of_memory` if memory allocation fails during resizing.
+- `success` with the popped string.
+
+---
+
+### `destroy :: stack -> IO ()`
+
+Destroys the stack and frees memory.
+
 gcc string_stack.c string_stack_test.c && ./a.out
 ```
 
 ### C++
 
 ```
+This module provides a dynamic stack implementation in C++ using a templated class. The stack automatically grows and shrinks as elements are pushed and popped, with a maximum capacity of 32,768 elements. It includes basic stack operations like push, pop, and checks for whether the stack is empty or full.
+
+## Methods
+
+### `Stack()`
+
+Constructor that creates a stack with an initial capacity of 16.
+
+---
+
+### `size() const -> int`
+
+Returns the number of elements currently in the stack.
+
+---
+
+### `is_empty() const -> bool`
+
+Checks if the stack is empty.
+
+**Returns:**
+- `true` if the stack is empty.
+- `false` otherwise.
+
+---
+
+### `is_full() const -> bool`
+
+Checks if the stack is full.
+
+**Returns:**
+- `true` if the stack is full.
+- `false` otherwise.
+
+---
+
+### `push(T item)`
+
+Pushes an element onto the stack.
+
+**Parameters:**
+- `item`: The item to be pushed onto the stack.
+
+**Throws:**
+- `overflow_error` if the stack has reached its maximum capacity (32,768).
+
+---
+
+### `pop() -> T`
+
+Pops the top element from the stack.
+
+**Returns:**
+- The popped element.
+
+**Throws:**
+- `underflow_error` if attempting to pop from an empty stack.
+
 g++ -std=c++20 stack_test.cpp && ./a.out
 ```
 
 ### Rust
 
 ```
+This module provides a generic stack implementation in Rust. The stack grows automatically as elements are pushed and popped, using a `Vec` to store the elements. It includes basic stack operations such as `push`, `pop`, `peek`, checking if the stack is empty, and getting the stack's length.
+
+## Methods
+
+### `new() -> Stack<T>`
+
+Creates a new empty stack.
+
+---
+
+### `push(&mut self, item: T)`
+
+Pushes an element onto the stack.
+
+**Parameters:**
+- `item`: The item to be pushed onto the stack.
+
+---
+
+### `pop(&mut self) -> Option<T>`
+
+Pops the top element from the stack.
+
+**Returns:**
+- `Some(item)` if an element is popped.
+- `None` if the stack is empty.
+
+---
+
+### `peek(&self) -> Option<&T>`
+
+Peeks at the top element without removing it.
+
+**Returns:**
+- `Some(&item)` if the stack is not empty.
+- `None` if the stack is empty.
+
+---
+
+### `is_empty(&self) -> bool`
+
+Checks if the stack is empty.
+
+**Returns:**
+- `true` if the stack is empty.
+- `false` otherwise.
+
+---
+
+### `len(&self) -> usize`
+
+Returns the number of elements in the stack.
+
 cargo test
 ```
 
