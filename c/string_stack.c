@@ -1,121 +1,132 @@
 #include "string_stack.h"
-
 #include <stdlib.h>
 #include <string.h>
 
 #define INITIAL_CAPACITY 16
 
-// Complete your string stack implementation in this file.
-
-struct _Stack {
-    char** elements;
+struct _Stack
+{
+    char **elements;
     int top;
     int capacity;
 };
 
-stack_response create() {
-    stack s = malloc(sizeof(struct _Stack));
-    if (s == NULL) {
-        return (stack_response){out_of_memory, NULL};
-    }
-    s->top = 0;
-    s->capacity = INITIAL_CAPACITY;
-    s->elements = malloc(INITIAL_CAPACITY * sizeof(char*));
-    //check for out of memory
-    //YOU DO THIS
-    if (s->elements == NULL) {
-        free(s);
+stack_response create()
+{
+    stack stack_instance = malloc(sizeof(struct _Stack));
+    if (stack_instance == NULL)
+    {
         return (stack_response){out_of_memory, NULL};
     }
 
-    return (stack_response){success,s};
+    stack_instance->top = 0;
+    stack_instance->capacity = INITIAL_CAPACITY;
+    stack_instance->elements = malloc(INITIAL_CAPACITY * sizeof(char *));
+    if (stack_instance->elements == NULL)
+    {
+        free(stack_instance);
+        return (stack_response){out_of_memory, NULL};
+    }
 
-
+    return (stack_response){success, stack_instance};
 }
 
-int size(const stack s) {
-    return s->top;
-}
-bool is_empty(const stack s) {
-    return size(s) == 0;
+int size(const stack stack_instance)
+{
+    return stack_instance->top;
 }
 
-bool is_full(const stack s) {
-    return s->top >= MAX_CAPACITY;
-}          
+bool is_empty(const stack stack_instance)
+{
+    return size(stack_instance) == 0;
+}
 
-response_code push(stack s, char* item) {
-    if (is_full(s)) {
+bool is_full(const stack stack_instance)
+{
+    return stack_instance->top >= MAX_CAPACITY;
+}
+
+response_code push(stack stack_instance, char *item)
+{
+    if (is_full(stack_instance))
+    {
         return stack_full;
     }
 
-    // Check if the string is too large
-    if (strlen(item) >= MAX_ELEMENT_BYTE_SIZE) {
+    if (strlen(item) >= MAX_ELEMENT_BYTE_SIZE)
+    {
         return stack_element_too_large;
     }
 
-    if (s->top == s->capacity) {
-        // We need to resize; double the capacity
-        int new_capacity = s->capacity * 2;
-        if (new_capacity > MAX_CAPACITY) {
+    if (stack_instance->top == stack_instance->capacity)
+    {
+        int new_capacity = stack_instance->capacity * 2;
+        if (new_capacity > MAX_CAPACITY)
+        {
             new_capacity = MAX_CAPACITY;
         }
-        char** new_elements = realloc(s->elements, new_capacity * sizeof(char*));
-        if (new_elements == NULL) {
+
+        char **new_elements = realloc(stack_instance->elements, new_capacity * sizeof(char *));
+        if (new_elements == NULL)
+        {
             return out_of_memory;
         }
-        s->elements = new_elements;
-        s->capacity = new_capacity;
+
+        stack_instance->elements = new_elements;
+        stack_instance->capacity = new_capacity;
     }
 
-    // Copy the string into the stack and increment the top index
-    s->elements[s->top] = strdup(item);  // Store the copy of the string
-    if (s->elements[s->top] == NULL) {  // Check if strdup failed
+    stack_instance->elements[stack_instance->top] = strdup(item);
+    if (stack_instance->elements[stack_instance->top] == NULL)
+    {
         return out_of_memory;
     }
-    s->top++;  // Move the top pointer to the next empty slot
 
+    stack_instance->top++;
     return success;
 }
 
-string_response pop(stack s) {
-    // First thing to check: is the stack empty?
-    if (is_empty(s)) {
+string_response pop(stack stack_instance)
+{
+    if (is_empty(stack_instance))
+    {
         return (string_response){stack_empty, NULL};
     }
-    char* popped = s->elements[--s->top];
-    //
-    //Hey if the capacity went below 1/4, we should shrink it
-    if (s->top < s->capacity / 4 && s->capacity > INITIAL_CAPACITY) {
-        int new_capacity = s->capacity / 2;
-        if (new_capacity < INITIAL_CAPACITY) {
+
+    char *popped = stack_instance->elements[--stack_instance->top];
+
+    if (stack_instance->top < stack_instance->capacity / 4 && stack_instance->capacity > INITIAL_CAPACITY)
+    {
+        int new_capacity = stack_instance->capacity / 2;
+        if (new_capacity < INITIAL_CAPACITY)
+        {
             new_capacity = INITIAL_CAPACITY;
         }
-        char** new_elements = realloc(s->elements, new_capacity * sizeof(char*));
-        if (new_elements == NULL) {
-            return (string_response){out_of_memory, NULL};
+
+        char **new_elements = realloc(stack_instance->elements, new_capacity * sizeof(char *));
+        if (new_elements != NULL)
+        {
+            stack_instance->elements = new_elements;
+            stack_instance->capacity = new_capacity;
         }
-        s->elements = new_elements;
-        s->capacity = new_capacity;
     }
 
     return (string_response){success, popped};
 }
 
-void destroy(stack* s) {
-    if (s == NULL || *s == NULL) {
+void destroy(stack *stack_instance)
+{
+    if (stack_instance == NULL || *stack_instance == NULL)
+    {
         return;
     }
 
-    // Free all the strings stored in the stack
-    for (int i = 0; i < (*s)->top; i++) {
-        free((*s)->elements[i]);
+    for (int i = 0; i < (*stack_instance)->top; i++)
+    {
+        free((*stack_instance)->elements[i]);
     }
 
-    // Free the array holding the strings
-    free((*s)->elements);
-
-    // Free the stack structure itself
-    free(*s);
-    *s = NULL;
+    free((*stack_instance)->elements);
+    free(*stack_instance);
+    *stack_instance = NULL;
 }
